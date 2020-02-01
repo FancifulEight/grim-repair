@@ -6,4 +6,7 @@ using UnityEngine;
 public class ObjectDataScript : ScriptableObject
 {
 	public List<Color> colorList = new List<Color>();
+	public List<Material> materialList = new List<Material>();
+
+
 }

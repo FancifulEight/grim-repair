@@ -20,7 +20,7 @@ public class InputWatcher : MonoBehaviour
     {
 		
         if (dragObject != null)
-		{
+		{// If you are dragging an object, set it's position to where the mouse is, with the z offset set when it was clicked on.
 			Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition)+ (Camera.main.transform.forward*distanceFromCamera);
 			dragObject.transform.position = position;
 		}
@@ -35,7 +35,7 @@ public class InputWatcher : MonoBehaviour
 			if (Physics.Raycast(GetScreenToWorldRay(Input.mousePosition), out hit, float.PositiveInfinity, LayerMask.GetMask("Draggable")))
 			{
 				Debug.Log("Can be dragged");
-				dragObject = hit.collider.gameObject;
+				dragObject = hit.collider.gameObject.transform.root.gameObject;
 				distanceFromCamera = (dragObject.transform.position - GetScreenToWorldRay(Input.mousePosition).origin).magnitude;
 			}
 		}
@@ -47,10 +47,22 @@ public class InputWatcher : MonoBehaviour
 			if (Physics.Raycast(GetScreenToWorldRay(Input.mousePosition), out hit, float.PositiveInfinity, layerMask ))
 			{
 				Debug.Log("OverTarget");
-				//dragObject = hit.collider.gameObject;
-				//distanceFromCamera = (dragObject.transform.position - GetScreenToWorldRay(Input.mousePosition).origin).magnitude;
+
+				// Get Soul component of dragged object and target and compare if types are the same. If they are, do a thing!
+				Soul draggedSoul = dragObject.GetComponent<Soul>();
+				Soul targetSoul = hit.collider.gameObject.transform.root.GetComponent<Soul>();
+
+				if(draggedSoul.material == targetSoul.material)
+				{
+					Debug.Log("Material matches!");
+				}
+				else
+				{
+					Debug.Log("Color doesn't match!");
+				}
 			}
-			//Debug.Log(hit.collider.gameObject);
+			
+			dragObject.SendMessage("ResetPosition");
 			dragObject = null;
 		}
 		
