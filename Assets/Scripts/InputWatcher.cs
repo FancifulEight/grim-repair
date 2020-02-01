@@ -10,6 +10,7 @@ public class InputWatcher : MonoBehaviour
 	RaycastHit hit;
 	Vector3 initialScreenOffset;
 	float initialZOffset, distanceFromCamera;
+	public Vector3 soulPosition;
 	// Start is called before the first frame update
 	void Start()
     {
@@ -19,13 +20,13 @@ public class InputWatcher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		Ray r;
 		DebugScreenToWorldRay(Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x,Input.mousePosition.y, Camera.main.nearClipPlane)));
+		Vector3 raycastAngle = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.transform.position;
 		
 		if (dragObject != null)
 		{// If you are dragging an object, set it's position to where the mouse is, with the z offset set when it was clicked on.
-			Vector3 position = Camera.main.ScreenToWorldPoint((Vector3)Input.mousePosition + Vector3.forward * distanceFromCamera)+initialScreenOffset;
-			dragObject.transform.position = position;
+			soulPosition = Camera.main.ScreenToWorldPoint((Vector3)Input.mousePosition + Vector3.forward * distanceFromCamera)+initialScreenOffset;
+			dragObject.transform.position = soulPosition;
 		}
     }
 
@@ -69,6 +70,7 @@ public class InputWatcher : MonoBehaviour
 			}
 			dragObject.SendMessage("ResetPosition");
 			dragObject = null;
+			soulPosition = Vector3.zero;
 		}
 		
 	}
