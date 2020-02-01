@@ -32,4 +32,8 @@ public class AudioController : MonoBehaviour {
         mainSrc.volume = Mathf.Lerp(mainSrc.volume, musicVolume, Time.fixedDeltaTime);
         altSrc.volume = Mathf.Lerp(altSrc.volume, ((isIntense) ? musicVolume:0), Time.fixedDeltaTime);
     }
+
+    public void PlaySFX(AudioClip clip, float relativeVol = 1) {
+        mainSrc.PlayOneShot(clip, sfxVolume * relativeVol);
+    }
 }
