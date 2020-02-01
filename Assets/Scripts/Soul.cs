@@ -5,14 +5,13 @@ using UnityEngine;
 public class Soul : MonoBehaviour
 {
 	public ObjectDataScript data;
-	public int  materialIndex;
+	public int materialIndex;
 	Vector3 startPosition;
-	
+
 	void Awake()
 	{
 		// material = data.materialList[materialIndex];
-		materialIndex = data.RandomMaterialIndex();
-		GetComponentInChildren<Renderer>().material = data.materialList[materialIndex];
+		
 	}
 	private void Start()
 	{
@@ -24,4 +23,15 @@ public class Soul : MonoBehaviour
 		transform.position = startPosition;
 	}
 
+	public void SetMaterial(int matIndex)
+	{
+		GetComponentInChildren<Renderer>().material = data.materialList[matIndex];
+		materialIndex = matIndex;
+	}
+
+	public void SetRandomMaterial()
+	{
+		materialIndex = data.RandomMaterialIndex();
+		GetComponentInChildren<Renderer>().material = data.materialList[materialIndex];
+	}
 }
