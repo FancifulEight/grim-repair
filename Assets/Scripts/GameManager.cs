@@ -11,11 +11,13 @@ public class GameManager : MonoBehaviour
 	int correctMaterialIndex;
 	Poinsetta poinsetta;
 	int currentScore;
-
+	int pointsForMatch = 100;
+	bool gameIsOver;
 
 	// Game Start - randomize soul and target materials. Only one target is the correct one.
 	void Awake()
 	{
+		gameIsOver = false;
 		soulArray = FindObjectsOfType<Soul>();
 		targetArray = FindObjectsOfType<Target>();
 		if(instance !=null)
@@ -57,7 +59,8 @@ public class GameManager : MonoBehaviour
 	public void SoulMatches(Soul soul, Target target)
 	{
 		Debug.Log("Matches!");
-
+		currentScore += pointsForMatch;
+		poinsetta.SetPoints(currentScore);
 		// Randomize soul material and update what indexes are valid
 		validSoulMaterialIndexes.Remove(soul.materialIndex);
 		soul.SetRandomMaterial();
@@ -105,5 +108,15 @@ public class GameManager : MonoBehaviour
 	public void EndGame()
 	{
 		// Do end game stuff.
+	}
+
+	public void OnCurtainsClosed()
+	{
+		//When curtains closed
+	}
+
+	public void OnCurtainsOpened()
+	{
+
 	}
 }
