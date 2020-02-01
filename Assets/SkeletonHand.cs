@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SkeletonHand : MonoBehaviour {
     public float distanceFromCam = 2.5f;
+    public float fixedZ = -8;
     void Start() {
         
     }
@@ -11,6 +12,8 @@ public class SkeletonHand : MonoBehaviour {
     void FixedUpdate() {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        transform.position = ray.origin + ray.direction * distanceFromCam;
+        Vector3 newPos = ray.origin + ray.direction * distanceFromCam;
+
+        transform.position = newPos;
     }
 }
