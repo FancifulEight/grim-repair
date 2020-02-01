@@ -119,7 +119,11 @@ public class GameManager : MonoBehaviour
 
 	public void OnCurtainsOpened()
 	{
+		// Game ends when curtain is fully open.
 		if(gameIsOver)
+		{
+
+		}
 
 	}
 }
