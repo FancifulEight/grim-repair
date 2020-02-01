@@ -449,11 +449,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: skelly hand grab
       objectReference: {fileID: 0}
-    - target: {fileID: 8296172668112494559, guid: f50cfa5c6709f364a904d3acf8e6bbd2,
-        type: 3}
-      propertyPath: fixedZ
-      value: -8.8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f50cfa5c6709f364a904d3acf8e6bbd2, type: 3}
 --- !u!1001 &744440799
@@ -930,6 +925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88aa9859c9787ac468c899fcb766716e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soulPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1526432921
 GameObject:
   m_ObjectHideFlags: 0
