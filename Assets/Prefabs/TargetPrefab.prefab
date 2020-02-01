@@ -138,9 +138,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 5de94a6f7dba4e34ea5593bbafcfeeef, type: 2}
-  color: {r: 0, g: 0, b: 0, a: 0}
   material: {fileID: 0}
-  colorIndex: 0
   materialIndex: 0
-  startPosition: {x: 0, y: 0, z: 0}
-  renderer: {fileID: 8014065569626116281}
