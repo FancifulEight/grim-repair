@@ -5,8 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/ObjectDataScriptableObject", order = 1)]
 public class ObjectDataScript : ScriptableObject
 {
-	public List<Color> colorList = new List<Color>();
 	public List<Material> materialList = new List<Material>();
 
 
+	public int RandomMaterialIndex()
+	{
+		return Random.Range(0, materialList.Count);
+	}
 }

@@ -24,13 +24,5 @@ MonoBehaviour:
   - {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 0.5176471}
   - {r: 0.16037738, g: 0.1550819, b: 0.1550819, a: 0.46666667}
   materialList:
-  - {fileID: 2100000, guid: c7332e72dca79f240a98a71e7182d317, type: 2}
   - {fileID: 2100000, guid: 2ea5b2992519bfc4c87f53f9170dc5d9, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: c7332e72dca79f240a98a71e7182d317, type: 2}
