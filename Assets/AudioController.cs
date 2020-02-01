@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioController : MonoBehaviour {
-    public AudioController ac = null;
+    public static AudioController ac = null;
 
     [Header("Audio Sources")]
     public AudioSource mainSrc;
