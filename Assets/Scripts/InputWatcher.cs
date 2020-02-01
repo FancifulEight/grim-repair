@@ -9,7 +9,7 @@ public class InputWatcher : MonoBehaviour
 	protected GameObject dragObject;
 	RaycastHit hit;
 	Vector3 initialScreenOffset;
-	float initialZOffset;
+	float initialZOffset, distanceFromCamera;
 	// Start is called before the first frame update
 	void Start()
     {
@@ -24,7 +24,7 @@ public class InputWatcher : MonoBehaviour
 		
 		if (dragObject != null)
 		{// If you are dragging an object, set it's position to where the mouse is, with the z offset set when it was clicked on.
-			Vector3 position = Camera.main.ScreenToWorldPoint((Vector3)Input.mousePosition + Vector3.forward * initialZOffset)+initialScreenOffset;
+			Vector3 position = Camera.main.ScreenToWorldPoint((Vector3)Input.mousePosition + Vector3.forward * distanceFromCamera)+initialScreenOffset;
 			dragObject.transform.position = position;
 		}
     }
@@ -38,12 +38,11 @@ public class InputWatcher : MonoBehaviour
 			if (Physics.Raycast(GetScreenToWorldRay(Input.mousePosition), out hit, float.PositiveInfinity, LayerMask.GetMask("Draggable")))
 			{
 				Debug.Log("Can be dragged");
-				dragObject = hit.collider.gameObject.transform.root.gameObject;
+				dragObject = hit.collider.gameObject;
 				initialZOffset = GetZOffset(dragObject);
 				initialScreenOffset = GetVectorOffset(dragObject, Input.mousePosition);
 				dragObject.transform.position = hit.point;
-				
-				//distanceFromCamera = (dragObject.transform.position - GetScreenToWorldRay(Input.mousePosition).origin).magnitude;
+				distanceFromCamera = (dragObject.transform.position - GetScreenToWorldRay(Input.mousePosition).origin).magnitude;
 			}
 		}
 		else if (value.Get<float>() == 0 && dragObject != null)
