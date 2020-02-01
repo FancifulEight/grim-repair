@@ -61,7 +61,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Open
-  m_Speed: -1
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7052747973131143695}
@@ -74,7 +74,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -8928351471818444634, guid: 37a445c9b27e585429397e4cec0cc518,
+  m_Motion: {fileID: -8928351471818444634, guid: 570d23c8c3f6f124fb71a8d342df9dcf,
     type: 3}
   m_Tag: 
   m_SpeedParameter: CurtainCloseSpeed
@@ -95,13 +95,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: CurtainCloseSpeed
     m_Type: 1
     m_DefaultFloat: 0.1
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -211,7 +211,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -8928351471818444634, guid: 4d79e67cc54b4bd4780a07362fbe6fc9,
+  m_Motion: {fileID: -8928351471818444634, guid: 03037d42a6c16be42ae7eff06b16d678,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
