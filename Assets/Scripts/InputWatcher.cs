@@ -19,10 +19,12 @@ public class InputWatcher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		Ray r;
+		DebugScreenToWorldRay(Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x,Input.mousePosition.y, Camera.main.nearClipPlane)));
 		
-        if (dragObject != null)
+		if (dragObject != null)
 		{// If you are dragging an object, set it's position to where the mouse is, with the z offset set when it was clicked on.
-			Vector3 position = Camera.main.ScreenToWorldPoint((Vector3)Input.mousePosition + Vector3.forward*initialZOffset)+initialScreenOffset;
+			Vector3 position = Camera.main.ScreenToWorldPoint((Vector3)Input.mousePosition + Vector3.forward * initialZOffset)+initialScreenOffset;
 			dragObject.transform.position = position;
 		}
     }
@@ -39,6 +41,8 @@ public class InputWatcher : MonoBehaviour
 				dragObject = hit.collider.gameObject.transform.root.gameObject;
 				initialZOffset = GetZOffset(dragObject);
 				initialScreenOffset = GetVectorOffset(dragObject, Input.mousePosition);
+				dragObject.transform.position = hit.point;
+				
 				//distanceFromCamera = (dragObject.transform.position - GetScreenToWorldRay(Input.mousePosition).origin).magnitude;
 			}
 		}
@@ -57,14 +61,13 @@ public class InputWatcher : MonoBehaviour
 
 				if(targetSoul !=null && draggedSoul.materialIndex == targetSoul.materialIndex)
 				{
-					Debug.Log("Material matches!");
+					GameManager.instance.SoulMatches(draggedSoul, targetSoul);
 				}
 				else
 				{
-					Debug.Log("Color doesn't match!");
+					GameManager.instance.SoulNoMatch();
 				}
 			}
-			
 			dragObject.SendMessage("ResetPosition");
 			dragObject = null;
 		}
@@ -76,8 +79,8 @@ public class InputWatcher : MonoBehaviour
 	Ray GetScreenToWorldRay(Vector2 vec)
 	{
 		Ray r;
-		r = Camera.main.ScreenPointToRay(new Vector3(vec.x, vec.y, Camera.main.nearClipPlane));
-		Debug.DrawRay(r.origin, r.direction * 1000, Color.red, 10f);
+		r = Camera.main.ScreenPointToRay(new Vector3(vec.x, vec.y, 0));
+		DebugScreenToWorldRay(r);
 		return r;
 	}
 
@@ -91,5 +94,10 @@ public class InputWatcher : MonoBehaviour
 	float GetZOffset(GameObject obj)
 	{
 		return obj.transform.position.z - Camera.main.transform.position.z;
+	}
+
+	void DebugScreenToWorldRay(Ray r)
+	{
+		Debug.DrawRay(r.origin, r.direction * 1000, Color.red, .2f);
 	}
 }
