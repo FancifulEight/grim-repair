@@ -8,7 +8,6 @@ public class InputWatcher : MonoBehaviour
 
 	protected GameObject dragObject;
 	RaycastHit hit;
-	float distanceFromCamera;
 	Vector3 initialScreenOffset;
 	float initialZOffset;
 	// Start is called before the first frame update
@@ -30,7 +29,7 @@ public class InputWatcher : MonoBehaviour
 
 	public void OnClick(InputValue value)
 	{// when value is 1, pressed. if 0, released.
-		
+		AudioController.ac.isIntense = value.Get<float>() == 1;
 		Debug.Log(value.Get<float>());
 		if (value.Get<float>() ==1)
 		{// On mouse press
@@ -40,7 +39,7 @@ public class InputWatcher : MonoBehaviour
 				dragObject = hit.collider.gameObject.transform.root.gameObject;
 				initialZOffset = GetZOffset(dragObject);
 				initialScreenOffset = GetVectorOffset(dragObject, Input.mousePosition);
-				distanceFromCamera = (dragObject.transform.position - GetScreenToWorldRay(Input.mousePosition).origin).magnitude;
+				//distanceFromCamera = (dragObject.transform.position - GetScreenToWorldRay(Input.mousePosition).origin).magnitude;
 			}
 		}
 		else if (value.Get<float>() == 0 && dragObject != null)
@@ -54,9 +53,9 @@ public class InputWatcher : MonoBehaviour
 
 				// Get Soul component of dragged object and target and compare if types are the same. If they are, do a thing!
 				Soul draggedSoul = dragObject.GetComponent<Soul>();
-				Soul targetSoul = hit.collider.gameObject.transform.root.GetComponent<Soul>();
+				Target targetSoul = hit.collider.gameObject.transform.root.GetComponent<Target>();
 
-				if(draggedSoul.materialIndex == targetSoul.materialIndex)
+				if(targetSoul !=null && draggedSoul.materialIndex == targetSoul.materialIndex)
 				{
 					Debug.Log("Material matches!");
 				}
