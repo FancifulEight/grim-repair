@@ -11,6 +11,7 @@ public class InputWatcher : MonoBehaviour
 	Vector3 initialScreenOffset;
 	float initialZOffset, distanceFromCamera;
 	public Vector3 soulPosition;
+	public Animator handAnimationController;
 	// Start is called before the first frame update
 	void Start()
     {

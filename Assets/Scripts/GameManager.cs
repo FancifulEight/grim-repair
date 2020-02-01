@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 	int currentScore;
 	int pointsForMatch = 100;
 	bool gameIsOver;
+	public Animator curtainAnimationController;
 
 	// Game Start - randomize soul and target materials. Only one target is the correct one.
 	void Awake()
@@ -108,6 +109,7 @@ public class GameManager : MonoBehaviour
 	public void EndGame()
 	{
 		// Do end game stuff.
+		gameIsOver = true;
 	}
 
 	public void OnCurtainsClosed()
@@ -117,6 +119,7 @@ public class GameManager : MonoBehaviour
 
 	public void OnCurtainsOpened()
 	{
+		if(gameIsOver)
 
 	}
 }
