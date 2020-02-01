@@ -6,11 +6,13 @@ using UnityEngine.InputSystem;
 public class InputWatcher : MonoBehaviour
 {
 
-	public GameObject dragObject;
+	protected GameObject dragObject;
 	RaycastHit hit;
 	float distanceFromCamera;
-    // Start is called before the first frame update
-    void Start()
+	Vector3 initialScreenOffset;
+	float initialZOffset;
+	// Start is called before the first frame update
+	void Start()
     {
         
     }
@@ -21,7 +23,7 @@ public class InputWatcher : MonoBehaviour
 		
         if (dragObject != null)
 		{// If you are dragging an object, set it's position to where the mouse is, with the z offset set when it was clicked on.
-			Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition)+ (Camera.main.transform.forward*distanceFromCamera);
+			Vector3 position = Camera.main.ScreenToWorldPoint((Vector3)Input.mousePosition + Vector3.forward*initialZOffset)+initialScreenOffset;
 			dragObject.transform.position = position;
 		}
     }
@@ -36,6 +38,8 @@ public class InputWatcher : MonoBehaviour
 			{
 				Debug.Log("Can be dragged");
 				dragObject = hit.collider.gameObject.transform.root.gameObject;
+				initialZOffset = GetZOffset(dragObject);
+				initialScreenOffset = GetVectorOffset(dragObject, Input.mousePosition);
 				distanceFromCamera = (dragObject.transform.position - GetScreenToWorldRay(Input.mousePosition).origin).magnitude;
 			}
 		}
@@ -52,7 +56,7 @@ public class InputWatcher : MonoBehaviour
 				Soul draggedSoul = dragObject.GetComponent<Soul>();
 				Soul targetSoul = hit.collider.gameObject.transform.root.GetComponent<Soul>();
 
-				if(draggedSoul.material == targetSoul.material)
+				if(draggedSoul.materialIndex == targetSoul.materialIndex)
 				{
 					Debug.Log("Material matches!");
 				}
@@ -68,11 +72,25 @@ public class InputWatcher : MonoBehaviour
 		
 	}
 
-	Ray GetScreenToWorldRay(Vector3 vec)
+
+
+	Ray GetScreenToWorldRay(Vector2 vec)
 	{
 		Ray r;
 		r = Camera.main.ScreenPointToRay(new Vector3(vec.x, vec.y, Camera.main.nearClipPlane));
-		Debug.DrawRay(r.origin, r.direction * 100, Color.red, 10f);
+		Debug.DrawRay(r.origin, r.direction * 1000, Color.red, 10f);
 		return r;
+	}
+
+
+	Vector3 GetVectorOffset(GameObject obj, Vector2 vec)
+	{
+
+		return obj.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(vec.x, vec.y, GetZOffset(obj)));
+	}
+
+	float GetZOffset(GameObject obj)
+	{
+		return obj.transform.position.z - Camera.main.transform.position.z;
 	}
 }

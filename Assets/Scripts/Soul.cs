@@ -5,17 +5,16 @@ using UnityEngine;
 public class Soul : MonoBehaviour
 {
 	public ObjectDataScript data;
-	public Color color;
 	public Material material;
-	public int colorIndex, materialIndex;
-	public Vector3 startPosition;
+	public int  materialIndex;
+	Vector3 startPosition;
 	
 	void Awake()
 	{
-		color = data.colorList[colorIndex];
+		// material = data.materialList[materialIndex];
+		materialIndex = data.RandomMaterialIndex();
 		material = data.materialList[materialIndex];
-
-		GetComponent<Renderer>().material = material;
+		GetComponentInChildren<Renderer>().material = material;
 	}
 	private void Start()
 	{
