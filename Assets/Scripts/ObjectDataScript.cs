@@ -6,7 +6,7 @@ using UnityEngine;
 public class ObjectDataScript : ScriptableObject
 {
 	public List<Material> materialList = new List<Material>();
-	public List<Material> targetMaterialLIst = new List<Material>();
+	public List<Material> targetMaterialList = new List<Material>();
 
 
 	public int RandomMaterialIndex()
