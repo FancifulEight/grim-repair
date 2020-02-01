@@ -9,9 +9,10 @@ public class GameManager : MonoBehaviour
 	Target[] targetArray;
 	List<int> validSoulMaterialIndexes;
 	int correctMaterialIndex;
-	Poinsetta poinsetta;
+	public Poinsetta poinsetta;
 	int currentScore;
 	int pointsForMatch = 100;
+	int pointsForMiss = -250;
 	bool gameIsOver;
 	public Animator curtainAnimationController;
 
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		currentScore = 0;
-		poinsetta = FindObjectOfType<Poinsetta>();
+		poinsetta.SetPoints(currentScore);
 		validSoulMaterialIndexes = new List<int>();
 		foreach (Soul s in soulArray)
 		{
@@ -76,6 +77,12 @@ public class GameManager : MonoBehaviour
 	public void SoulNoMatch()
 	{
 		Debug.Log("No Match!");
+		currentScore += pointsForMiss;
+		if (currentScore < 0)
+		{
+			currentScore = 0;
+		}
+		poinsetta.SetPoints(currentScore);
 	}
 	//Set points (doesn't add to total, sets value).
 
