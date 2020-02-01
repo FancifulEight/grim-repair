@@ -13,7 +13,7 @@ public class Poinsetta : MonoBehaviour {
         string digits = "";
 
         for (int i = 0;i < 6;i++) {
-            digits += (points % 10);
+            digits = (points % 10) + digits;
             points /= 10;
         }
 
