@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
 	string positivePointString;
 	bool musicIsIntense;
 	int currentRoundNumber;
+	AudioController audioController;
+	int intenseRoundNumber = 4;
+
+	float curtainCloseSpeed;
  void Awake()
 	{
 		gameIsOver = false;
@@ -44,11 +48,13 @@ public class GameManager : MonoBehaviour
 		}
 		inputWatcher = FindObjectOfType<InputWatcher>();
 		soulManager = FindObjectOfType<SoulManager>();
+		audioController = FindObjectOfType<AudioController>();
 	}
 
 	
 	private void Start()
 	{
+		//curtainCloseSpeed = curtainAnimationController.parameters.
 		currentScore = 0;
 		musicIsIntense = false;
 		poinsetta.SetPoints(currentScore);
@@ -203,6 +209,7 @@ public class GameManager : MonoBehaviour
 	public void OnCurtainsIdle()
 	{
 		Debug.Log("Curtain Idle");
+		currentRoundNumber++;
 		matchMade = false;
 		if (gameIsOver)
 		{
@@ -215,6 +222,7 @@ public class GameManager : MonoBehaviour
 
 			//Reset positive and negative points to default values for potential matches.
 			currentPositivePoints = defaultPositivePoints;
+			audioController.SetIntensity(currentRoundNumber >= intenseRoundNumber);
 		}
 
 	}
