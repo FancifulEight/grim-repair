@@ -2520,6 +2520,7 @@ MonoBehaviour:
   mainPanel: {fileID: 81214620}
   optionsPanel: {fileID: 967982675}
   skeletonHand: {fileID: 628187392}
+  clickSFX: {fileID: 8300000, guid: d8b6a84b8b2b19b489b14caaa5a35f62, type: 3}
 --- !u!114 &2134005298
 MonoBehaviour:
   m_ObjectHideFlags: 0

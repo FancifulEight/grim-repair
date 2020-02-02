@@ -6,11 +6,15 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
 	public string startSceneName;
-	 public GameObject mainPanel, optionsPanel;
-	 public Animator skeletonHand;
+	public GameObject mainPanel, optionsPanel;
+	public Animator skeletonHand;
+
+	[Header("SFX")]
+	public AudioClip clickSFX;
 
 	public void StartGame() {
 		if (!skeletonHand.GetBool("Dragging")) {
+			AudioController.ac.PlaySFX(clickSFX);
 			skeletonHand.SetBool("Dragging", true);
 			StartCoroutine(LoadSceneAfterTime());
 		}
@@ -23,6 +27,7 @@ public class MainMenuManager : MonoBehaviour
 
 	public void QuictGame()
 	{
+		AudioController.ac.PlaySFX(clickSFX);
 	#if UNITY_EDITOR
 			UnityEditor.EditorApplication.isPlaying = false;
 	#else
@@ -32,12 +37,14 @@ public class MainMenuManager : MonoBehaviour
 
 	public void OptionsPanelActivate()
 	{
+		AudioController.ac.PlaySFX(clickSFX);
 		optionsPanel.SetActive(true);
 		mainPanel.SetActive(false);
 	}
 
 	public void OptionsPanelDeactivate()
 	{
+		AudioController.ac.PlaySFX(clickSFX);
 		mainPanel.SetActive(true);
 		optionsPanel.SetActive(false);
 	}
