@@ -43,8 +43,28 @@ public class SoulManager : MonoBehaviour {
     }
 
     public void SetRandomBody() {
-        SetBody(Random.Range(0, targetBodies.Count));
+		SetBody(currentSouls[Random.Range(0, currentSouls.Count)].materialIndex);
+		//List<Target> targetList = new List<Target>(targetBodies);
+		//targetList.RemoveAll(IsValidMaterialIndex);
+
+
+		//if (currentTarget != null)
+		//	currentTarget.gameObject.transform.position = new Vector3(0, -100, 0);
+		//currentTarget = targetList[Random.Range(0, targetList.Count)];
+		//currentTarget.transform.position = targetPositions[Random.Range(0, targetPositions.Count)].position;
+
+		//SetBody(Random.Range(0, targetBodies.Count));
     }
+
+	public bool IsValidMaterialIndex(Target t)
+	{
+		bool isValid = false;
+		foreach(Soul s in currentSouls)
+		{
+			isValid |= s.materialIndex == t.materialIndex;
+		}
+		return isValid;
+	}
 
     public void SetBody(int index) {
         if (currentTarget != null)

@@ -183,6 +183,7 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			soulManager.SetRandomBody();
+			
 			curtainAnimationController.SetBool("GameRunning", true);
 		}
 	}
@@ -200,6 +201,7 @@ public class GameManager : MonoBehaviour
 
 	public void CheckForMatch(Soul soul, Target target)
 	{
+		Debug.Log("Soul matIndex = " + soul.materialIndex + " Target matIndex =  " + target.materialIndex);
 		if(soul.materialIndex == target.materialIndex)
 		{
 			SoulMatches(soul, target);
