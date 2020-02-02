@@ -43,8 +43,8 @@ public class Soul : MonoBehaviour
 
 	public void SetRandomMaterial()
 	{
-		materialIndex = data.RandomMaterialIndex();
-		GetComponentInChildren<Renderer>().material = data.materialList[materialIndex];
+		//materialIndex = data.RandomMaterialIndex();
+		//GetComponentInChildren<Renderer>().material = data.materialList[materialIndex];
 	}
 
 	public void SetStartPosition()
