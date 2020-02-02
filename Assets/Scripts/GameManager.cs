@@ -6,26 +6,24 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
-	Soul[] soulArray;
-	Target[] targetArray;
+	
 	List<int> validSoulMaterialIndexes;
 	int correctMaterialIndex;
 	public Poinsetta poinsetta;
 	int currentScore;
 	int pointsForMatch = 100;
 	int pointsForMiss = -250;
-	bool gameIsOver, matchMade;
+	bool gameIsOver, matchMade, canResetGame;
 	public Animator curtainAnimationController;
 	public GameObject gameOverPanel;
 	InputWatcher inputWatcher;
 	SoulManager soulManager;
 	public int carriedSoulIndex;
-	// Game Start - randomize soul and target materials. Only one target is the correct one.
-	void Awake()
+	
+ void Awake()
 	{
 		gameIsOver = false;
-		//soulArray = FindObjectsOfType<Soul>();
-		//targetArray = FindObjectsOfType<Target>();
+		
 		if(instance !=null)
 		{
 			Destroy(this);
@@ -38,6 +36,7 @@ public class GameManager : MonoBehaviour
 		soulManager = FindObjectOfType<SoulManager>();
 	}
 
+	
 	private void Start()
 	{
 		currentScore = 0;
@@ -59,25 +58,36 @@ public class GameManager : MonoBehaviour
 		}
 
 		// Only one target should be the right one.
-		//targetArray[Random.Range(0, targetArray.Length)].correctTarget = true;
-
 		correctMaterialIndex = validSoulMaterialIndexes[Random.Range(0, validSoulMaterialIndexes.Count)];
 
-		//SetTargetMaterials();
+		
 		curtainAnimationController.SetBool("GameRunning", true);
 	}
 	//set materials and target materials.
-	
-	
-
-
-	// Set Object
-
+	private void Update()
+	{
+		if(matchMade && canResetGame)
+		{
+			curtainAnimationController.SetBool("GameRunning", false);
+		}
+		if (curtainAnimationController.GetCurrentAnimatorStateInfo(0).IsName("Open"))
+		{
+			//Debug.Log("Opening");
+			//Debug.Log(curtainAnimationController.GetCurrentAnimatorStateInfo(0).normalizedTime);
+			canResetGame = true;
+		}
+		else
+		{
+			canResetGame = false;
+		}
+			
+	}
 	//When soul matches target
 	public void SoulMatches(Soul soul, Target target)
 	{
 		Debug.Log("Matches!");
 		matchMade = true;
+		canResetGame = false;
 		currentScore += pointsForMatch;
 		poinsetta.SetPoints(currentScore);
 		// Randomize soul material and update what indexes are valid
@@ -90,10 +100,9 @@ public class GameManager : MonoBehaviour
 		SelectValidIndex();
 		
 		// Close Curtains 
-		curtainAnimationController.SetBool("GameRunning", false);
-		//inputWatcher.
-		// Randomize all target materials.
-		//SetTargetMaterials();
+		//curtainAnimationController.SetBool("GameRunning", false);
+		//If not allowing input until curtain starts opening again?
+
 
 	}
 	//When soul doesn't match target
@@ -169,13 +178,13 @@ public class GameManager : MonoBehaviour
 		{
 			gameIsOver = true;
 		}
-		matchMade = false;
 		curtainAnimationController.SetBool("GameRunning", false);
 	}
 
 	public void OnCurtainsIdle()
 	{
 		Debug.Log("Curtain Idle");
+		matchMade = false;
 		if (gameIsOver)
 		{
 			EndGame();
@@ -188,6 +197,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	
 	public void ReloadGame()
 	{
 		// Currently just reload the current scene on replay.
@@ -201,15 +211,18 @@ public class GameManager : MonoBehaviour
 
 	public void CheckForMatch(Soul soul, Target target)
 	{
-		Debug.Log("Soul matIndex = " + soul.materialIndex + " Target matIndex =  " + target.materialIndex);
-		if(soul.materialIndex == target.materialIndex)
-		{
-			SoulMatches(soul, target);
-		}
-		else
-		{
-			SoulNoMatch(soul);
-		}
+		
+			Debug.Log("Soul matIndex = " + soul.materialIndex + " Target matIndex =  " + target.materialIndex);
+			if (soul.materialIndex == target.materialIndex)
+			{
+				SoulMatches(soul, target);
+			}
+			else
+			{
+				SoulNoMatch(soul);
+			}
+		
+		
 	}
 
 	public void ResetSoulPosition(Soul soul)
