@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 			instance = this;
 		}
 		inputWatcher = FindObjectOfType<InputWatcher>();
-		soulManager = GetComponent<SoulManager>();
+		soulManager = FindObjectOfType<SoulManager>();
 	}
 
 	private void Start()
@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour
 		}
 		else
 		{
-			SetTargetMaterials();
+			soulManager.SetRandomBody();
 			curtainAnimationController.SetBool("GameRunning", true);
 		}
 	}

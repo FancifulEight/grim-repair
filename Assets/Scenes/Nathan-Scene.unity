@@ -2093,7 +2093,6 @@ GameObject:
   - component: {fileID: 789793976}
   - component: {fileID: 789793979}
   - component: {fileID: 789793980}
-  - component: {fileID: 789793981}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2213,41 +2212,6 @@ MonoBehaviour:
   curtainAnimationController: {fileID: 514933709}
   gameOverPanel: {fileID: 1310773991}
   carriedSoulIndex: 0
---- !u!114 &789793981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 789793975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7bfa797dce3be94089207b094ea5b2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soulPositions:
-  - {fileID: 2031885404}
-  - {fileID: 1557699377}
-  - {fileID: 1110725201}
-  - {fileID: 83446850}
-  targetPositions:
-  - {fileID: 1589329157}
-  - {fileID: 1617385647}
-  - {fileID: 506035168}
-  - {fileID: 164348341}
-  targetBodies:
-  - {fileID: 1845166371}
-  - {fileID: 963963387}
-  - {fileID: 1081999764}
-  soulOptions:
-  - {fileID: 269793106}
-  - {fileID: 1331378759}
-  - {fileID: 1384705322}
-  - {fileID: 544595856}
-  - {fileID: 2132024455}
-  - {fileID: 22937110}
-  currentTarget: {fileID: 0}
-  currentSouls: []
 --- !u!1001 &809474646
 PrefabInstance:
   m_ObjectHideFlags: 0
