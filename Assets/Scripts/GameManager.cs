@@ -212,6 +212,7 @@ public class GameManager : MonoBehaviour
 		Debug.Log("Curtains Opened");
 		if(!matchMade)
 		{
+			AudioController.ac.PlaySFX(badSFX);
 			gameIsOver = true;
 		}
 		curtainAnimationController.SetBool("GameRunning", false);
