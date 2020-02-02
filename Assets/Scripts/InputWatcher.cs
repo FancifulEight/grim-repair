@@ -43,7 +43,7 @@ public class InputWatcher : MonoBehaviour
 
 	public void OnClick(InputValue value)
 	{// when value is 1, pressed. if 0, released.
-		AudioController.ac.isIntense = value.Get<float>() == 1;
+		//AudioController.ac.SetIntensity(value.Get<float>() == 1);
 		Debug.Log(value.Get<float>());
 		if (value.Get<float>() == 1)
 		{// On mouse press
