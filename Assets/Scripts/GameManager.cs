@@ -34,6 +34,11 @@ public class GameManager : MonoBehaviour
 	 float maxCurtainCloseSpeed = 2;
 	 float currentCurtainCloseSpeed;
 	 float curtainCloseLerpSpeed = 100f;
+
+	 [Header("SFX")]
+	 public AudioClip goodSFX;
+	 public AudioClip badSFX;
+
  void Awake()
 	{
 		gameIsOver = false;
@@ -112,6 +117,8 @@ public class GameManager : MonoBehaviour
 	//When soul matches target
 	public void SoulMatches(Soul soul, Target target)
 	{
+		AudioController.ac.PlaySFX(goodSFX);
+
 		Debug.Log("Matches!");
 		matchMade = true;
 		canResetGame = false;
@@ -135,6 +142,8 @@ public class GameManager : MonoBehaviour
 	//When soul doesn't match target
 	public void SoulNoMatch(Soul soul)
 	{
+		AudioController.ac.PlaySFX(badSFX);
+
 		Debug.Log("No Match!");
 		int grabbedIndex = soulManager.currentSouls.IndexOf(soul);
 		soulManager.ReturnSoulStartPosition(grabbedIndex);

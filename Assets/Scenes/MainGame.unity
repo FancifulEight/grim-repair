@@ -1708,6 +1708,8 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1385674962}
   carriedSoulIndex: 0
   currentRoundNumber: 0
+  goodSFX: {fileID: 8300000, guid: 98241577ba3a4674dbd3fb5c86cf78ba, type: 3}
+  badSFX: {fileID: 8300000, guid: b292f2140add85244bc1b5d3d3c28a5f, type: 3}
 --- !u!1 &1526432921
 GameObject:
   m_ObjectHideFlags: 0
