@@ -12,10 +12,11 @@ public class InputWatcher : MonoBehaviour
 	float initialZOffset, distanceFromCamera;
 	public Vector3 soulPosition;
 	public Animator handAnimationController;
+	public bool canPickUpSouls;
 	// Start is called before the first frame update
 	void Start()
     {
-        
+		canPickUpSouls = true;
     }
 
     // Update is called once per frame
@@ -35,7 +36,7 @@ public class InputWatcher : MonoBehaviour
 	{// when value is 1, pressed. if 0, released.
 		AudioController.ac.isIntense = value.Get<float>() == 1;
 		Debug.Log(value.Get<float>());
-		if (value.Get<float>() ==1)
+		if (value.Get<float>() == 1)
 		{// On mouse press
 			if (Physics.Raycast(GetScreenToWorldRay(Input.mousePosition), out hit, float.PositiveInfinity, LayerMask.GetMask("Draggable")))
 			{
@@ -59,16 +60,18 @@ public class InputWatcher : MonoBehaviour
 
 				// Get Soul component of dragged object and target and compare if types are the same. If they are, do a thing!
 				Soul draggedSoul = dragObject.GetComponent<Soul>();
-				Target targetSoul = hit.collider.gameObject.transform.root.GetComponent<Target>();
+				Target targetSoul = hit.collider.gameObject.GetComponent<Target>();
 
-				if(targetSoul !=null && draggedSoul.materialIndex == targetSoul.materialIndex)
-				{
-					GameManager.instance.SoulMatches(draggedSoul, targetSoul);
-				}
-				else
-				{
-					GameManager.instance.SoulNoMatch();
-				}
+				GameManager.instance.CheckForMatch(draggedSoul, targetSoul);
+
+				//if(targetSoul !=null && draggedSoul.materialIndex == targetSoul.materialIndex)
+				//{
+				//	GameManager.instance.SoulMatches(draggedSoul, targetSoul);
+				//}
+				//else
+				//{
+				//	GameManager.instance.SoulNoMatch();
+				//}
 			}
 			dragObject.SendMessage("ResetPosition");
 			dragObject = null;
