@@ -64,10 +64,10 @@ public class GameManager : MonoBehaviour
 		validSoulMaterialIndexes = new List<int>();
 		foreach (Soul s in soulManager.currentSouls)
 		{
-			if (s.doNotRandomize)
-			{
-				s.SetMaterial(s.materialIndex);
-			}
+			//if (s.doNotRandomize)
+			//{
+			//	s.SetMaterial(s.materialIndex);
+			//}
 		//	else
 		//	{
 		//		s.SetRandomMaterial();

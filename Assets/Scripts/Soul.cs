@@ -29,14 +29,14 @@ public class Soul : MonoBehaviour
 
 	public void SetMaterial(int matIndex)
 	{
-		GetComponentInChildren<Renderer>().material = data.materialList[matIndex];
-		materialIndex = matIndex;
+		//GetComponentInChildren<Renderer>().material = data.materialList[matIndex];
+		//materialIndex = matIndex;
 	}
 
 	public void SetRandomMaterial()
 	{
-		materialIndex = data.RandomMaterialIndex();
-		GetComponentInChildren<Renderer>().material = data.materialList[materialIndex];
+		//materialIndex = data.RandomMaterialIndex();
+		//GetComponentInChildren<Renderer>().material = data.materialList[materialIndex];
 	}
 
 	public void SetStartPosition()
