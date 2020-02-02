@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,12 +13,11 @@ public class GameManager : MonoBehaviour
 	public Poinsetta poinsetta;
 	int currentScore;
 	[SerializeField]
-	int defaultPositivePoints = 100;
+	int defaultPositivePoints = 250;
 	int currentPositivePoints;
 	[SerializeField]
 	int minimumNegativePoints = -50;
 	[SerializeField]
-	int additionalNegativePoints = -200;
 	int currentNegativePoints;
 	float pointMultiplier;
 	bool gameIsOver, matchMade, canResetGame;
@@ -26,7 +26,10 @@ public class GameManager : MonoBehaviour
 	InputWatcher inputWatcher;
 	SoulManager soulManager;
 	public int carriedSoulIndex;
-	
+	public TextMeshProUGUI positivePointsText;
+	string positivePointString;
+	bool musicIsIntense;
+	int currentRoundNumber;
  void Awake()
 	{
 		gameIsOver = false;
@@ -47,7 +50,11 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		currentScore = 0;
+		musicIsIntense = false;
 		poinsetta.SetPoints(currentScore);
+		currentRoundNumber = 0;
+		currentNegativePoints = minimumNegativePoints;
+		currentPositivePoints = defaultPositivePoints;
 		soulManager.SetUpGame();
 		validSoulMaterialIndexes = new List<int>();
 		foreach (Soul s in soulManager.currentSouls)
@@ -82,16 +89,17 @@ public class GameManager : MonoBehaviour
 		{
 			//Debug.Log("Opening");
 			//Debug.Log(curtainAnimationController.GetCurrentAnimatorStateInfo(0).normalizedTime);
-			pointMultiplier = 1 - curtainAnimationController.GetCurrentAnimatorStateInfo(0).normalizedTime;
+			pointMultiplier = curtainAnimationController.GetCurrentAnimatorStateInfo(0).normalizedTime;
 			canResetGame = true;
-			currentPositivePoints = (int)Mathf.Round(defaultPositivePoints * pointMultiplier);
-			//currentNegativePoints = minimumNegativePoints - (additionalNegativePoints * pointMultiplier);
+			currentPositivePoints = (int)(defaultPositivePoints * (1-pointMultiplier));
+			
+
 		}
 		else
 		{
 			canResetGame = false;
 		}
-			
+		positivePointsText.text = "+" + currentPositivePoints.ToString();
 	}
 	//When soul matches target
 	public void SoulMatches(Soul soul, Target target)
@@ -122,7 +130,7 @@ public class GameManager : MonoBehaviour
 		Debug.Log("No Match!");
 		int grabbedIndex = soulManager.currentSouls.IndexOf(soul);
 		soulManager.ReturnSoulStartPosition(grabbedIndex);
-		currentScore += minimumNegativePoints;
+		currentScore += currentNegativePoints;
 		if (currentScore < 0)
 		{
 			currentScore = 0;
@@ -207,7 +215,6 @@ public class GameManager : MonoBehaviour
 
 			//Reset positive and negative points to default values for potential matches.
 			currentPositivePoints = defaultPositivePoints;
-			currentNegativePoints = minimumNegativePoints;
 		}
 
 	}
