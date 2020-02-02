@@ -43,9 +43,10 @@ public class SoulManager : MonoBehaviour {
     }
 
     public void SetBody(int index) {
-        if (currentTarget != null) 
+        if (currentTarget != null)
             currentTarget.gameObject.transform.position = new Vector3(0, -100, 0);
         currentTarget = targetBodies[index];
+        currentTarget.transform.position = targetPositions[Random.Range(0, targetPositions.Count)].position;
     }
 
     public void ChangeSoul(Soul currentSoul) {
