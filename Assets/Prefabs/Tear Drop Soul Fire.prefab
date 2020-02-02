@@ -4709,7 +4709,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 74183b5c7a7da9147a6288b518f85376, type: 2}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4931,6 +4931,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 5de94a6f7dba4e34ea5593bbafcfeeef, type: 2}
   materialIndex: 0
+  soulBody: {fileID: 0}
+  ps: {fileID: 0}
+  doNotRandomize: 0
 --- !u!114 &8255515722663938048
 MonoBehaviour:
   m_ObjectHideFlags: 0

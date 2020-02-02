@@ -8,18 +8,23 @@ public class Soul : MonoBehaviour
 	public int materialIndex;
 	Vector3 startPosition;
 	public GameObject soulBody;
+	public ParticleSystem ps;
 	public bool doNotRandomize;
+
+	private Renderer rend;
 
 	void Awake()
 	{
 		//material = data.materialList[materialIndex];
 		//soulBody = data.bodyList[materialIndex];
+		rend = GetComponent<Renderer>();
 	}
-	private void Start()
+
+	void Start()
 	{
-		//SetMaterial(materialIndex);
+		ps = GetComponentInChildren<ParticleSystem>();
+		SetMaterial(materialIndex);
 		//startPosition = transform.position;
-		
 	}
 
 	public void ResetPosition()
@@ -29,7 +34,10 @@ public class Soul : MonoBehaviour
 
 	public void SetMaterial(int matIndex)
 	{
-		GetComponentInChildren<Renderer>().material = data.materialList[matIndex];
+		rend.material = data.materialList[matIndex];
+		ParticleSystem.MainModule mainModule = ps.main;
+		mainModule.startColor = rend.material.color;
+		Debug.Log(rend.material.color);
 		materialIndex = matIndex;
 	}
 
