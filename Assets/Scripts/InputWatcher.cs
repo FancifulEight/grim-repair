@@ -13,14 +13,16 @@ public class InputWatcher : MonoBehaviour
 	public Vector3 soulPosition;
 	public Animator handAnimationController;
 	public bool canPickUpSouls;
+	public SkeletonHand skeletonHand;
 	// Start is called before the first frame update
 	void Start()
     {
 		canPickUpSouls = true;
+		skeletonHand = FindObjectOfType<SkeletonHand>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 		DebugScreenToWorldRay(Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x,Input.mousePosition.y, Camera.main.nearClipPlane)));
 		Vector3 raycastAngle = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.transform.position;
@@ -29,6 +31,11 @@ public class InputWatcher : MonoBehaviour
 		{// If you are dragging an object, set it's position to where the mouse is, with the z offset set when it was clicked on.
 			soulPosition = Camera.main.ScreenToWorldPoint((Vector3)Input.mousePosition + Vector3.forward * distanceFromCamera)+initialScreenOffset;
 			dragObject.transform.position = soulPosition;
+			skeletonHand.grabbedSoulPosition = soulPosition;
+		}
+		else
+		{
+			skeletonHand.grabbedSoulPosition = Vector3.zero;
 		}
     }
 
