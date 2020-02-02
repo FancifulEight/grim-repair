@@ -40,6 +40,7 @@ public class InputWatcher : MonoBehaviour
 			if (Physics.Raycast(GetScreenToWorldRay(Input.mousePosition), out hit, float.PositiveInfinity, LayerMask.GetMask("Draggable")))
 			{
 				Debug.Log("Can be dragged");
+				handAnimationController.SetBool("Dragging", true);
 				dragObject = hit.collider.gameObject;
 				initialZOffset = GetZOffset(dragObject);
 				initialScreenOffset = GetVectorOffset(dragObject, Input.mousePosition);
@@ -72,6 +73,7 @@ public class InputWatcher : MonoBehaviour
 			dragObject.SendMessage("ResetPosition");
 			dragObject = null;
 			soulPosition = Vector3.zero;
+			handAnimationController.SetBool("Dragging", false);
 		}
 		
 	}
