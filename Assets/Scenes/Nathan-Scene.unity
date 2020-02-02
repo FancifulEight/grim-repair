@@ -792,7 +792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &381307343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1540,6 +1540,7 @@ MonoBehaviour:
   soulPosition: {x: 0, y: 0, z: 0}
   handAnimationController: {fileID: 643823441}
   canPickUpSouls: 0
+  skeletonHand: {fileID: 0}
 --- !u!4 &533125503
 Transform:
   m_ObjectHideFlags: 0
@@ -2080,6 +2081,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddf3c7865fcade04ebc2fce64a2a3024, type: 3}
+--- !u!1001 &769110133
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1632773926417974693, guid: e478aae37cb644447b7656d526037e71,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632773926417974693, guid: e478aae37cb644447b7656d526037e71,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632773926417974693, guid: e478aae37cb644447b7656d526037e71,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632773926417974693, guid: e478aae37cb644447b7656d526037e71,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632773926417974693, guid: e478aae37cb644447b7656d526037e71,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632773926417974693, guid: e478aae37cb644447b7656d526037e71,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632773926417974693, guid: e478aae37cb644447b7656d526037e71,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632773926417974693, guid: e478aae37cb644447b7656d526037e71,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632773926417974693, guid: e478aae37cb644447b7656d526037e71,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632773926417974693, guid: e478aae37cb644447b7656d526037e71,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632773926417974693, guid: e478aae37cb644447b7656d526037e71,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632773926417974715, guid: e478aae37cb644447b7656d526037e71,
+        type: 3}
+      propertyPath: m_Name
+      value: Souls (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e478aae37cb644447b7656d526037e71, type: 3}
 --- !u!1 &789793975
 GameObject:
   m_ObjectHideFlags: 0
@@ -2702,7 +2772,8 @@ Animation:
   serializedVersion: 3
   m_Animation: {fileID: -8928351471818444634, guid: bbbe7b0e17895c44fbede4898fa87234,
     type: 3}
-  m_Animations: []
+  m_Animations:
+  - {fileID: -8928351471818444634, guid: bbbe7b0e17895c44fbede4898fa87234, type: 3}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -3942,7 +4013,8 @@ Animation:
   serializedVersion: 3
   m_Animation: {fileID: -8928351471818444634, guid: bbbe7b0e17895c44fbede4898fa87234,
     type: 3}
-  m_Animations: []
+  m_Animations:
+  - {fileID: -8928351471818444634, guid: bbbe7b0e17895c44fbede4898fa87234, type: 3}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -4686,7 +4758,8 @@ Animation:
   serializedVersion: 3
   m_Animation: {fileID: -8928351471818444634, guid: bbbe7b0e17895c44fbede4898fa87234,
     type: 3}
-  m_Animations: []
+  m_Animations:
+  - {fileID: -8928351471818444634, guid: bbbe7b0e17895c44fbede4898fa87234, type: 3}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0

@@ -19,6 +19,8 @@ public class InputWatcher : MonoBehaviour
     {
 		canPickUpSouls = true;
 		skeletonHand = FindObjectOfType<SkeletonHand>();
+		skeletonHand.grabbedSoulPosition = Vector3.zero;
+		
     }
 
     // Update is called once per frame

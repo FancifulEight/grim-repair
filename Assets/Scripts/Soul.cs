@@ -13,7 +13,7 @@ public class Soul : MonoBehaviour
 	void Awake()
 	{
 		//material = data.materialList[materialIndex];
-		soulBody = data.bodyList[materialIndex];
+		//soulBody = data.bodyList[materialIndex];
 	}
 	private void Start()
 	{
