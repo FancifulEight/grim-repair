@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
 
 		correctMaterialIndex = validSoulMaterialIndexes[Random.Range(0, validSoulMaterialIndexes.Count)];
 
-		RandomizeTargetMaterials();
+		SetTargetMaterials();
 		curtainAnimationController.SetBool("GameRunning", true);
 	}
 	//set materials and target materials.
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
 		curtainAnimationController.SetBool("GameRunning", false);
 
 		// Randomize all target materials.
-		//RandomizeTargetMaterials();
+		SetTargetMaterials();
 
 	}
 	//When soul doesn't match target
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
 	}
 	//Set points (doesn't add to total, sets value).
 
-	void RandomizeTargetMaterials()
+	void SetTargetMaterials()
 	{
 		foreach (Target t in targetArray)
 		{
@@ -112,11 +112,11 @@ public class GameManager : MonoBehaviour
 				}
 				else
 				{
-					//t.SetRandomMaterial();
-					//while (validSoulMaterialIndexes.Contains(t.materialIndex))
-					//{
-					//	t.SetRandomMaterial();
-					//}
+					t.SetRandomMaterial();
+					while (validSoulMaterialIndexes.Contains(t.materialIndex))
+					{
+						t.SetRandomMaterial();
+					}
 				}
 				
 			}
@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
 		}
 		else
 		{
-			RandomizeTargetMaterials();
+			SetTargetMaterials();
 		}
 	}
 
