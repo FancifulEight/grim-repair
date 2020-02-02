@@ -29,11 +29,12 @@ public class GameManager : MonoBehaviour
 	//public TextMeshProUGUI positivePointsText;
 	string positivePointString;
 	bool musicIsIntense;
-	int currentRoundNumber;
+	public int currentRoundNumber;
 	AudioController audioController;
 	int intenseRoundNumber = 4;
-
-	float curtainCloseSpeed;
+	
+	public float startCurtainCloseSpeed = 0.1f;
+	public float currentCurtainCloseSpeed;
  void Awake()
 	{
 		gameIsOver = false;
@@ -54,7 +55,6 @@ public class GameManager : MonoBehaviour
 	
 	private void Start()
 	{
-		//curtainCloseSpeed = curtainAnimationController.parameters.
 		currentScore = 0;
 		musicIsIntense = false;
 		poinsetta.SetPoints(currentScore);
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
 		// Only one target should be the right one.
 		correctMaterialIndex = validSoulMaterialIndexes[Random.Range(0, validSoulMaterialIndexes.Count)];
 
-		
+		currentCurtainCloseSpeed = startCurtainCloseSpeed;
 		curtainAnimationController.SetBool("GameRunning", true);
 	}
 	//set materials and target materials.
@@ -98,7 +98,10 @@ public class GameManager : MonoBehaviour
 			pointMultiplier = curtainAnimationController.GetCurrentAnimatorStateInfo(0).normalizedTime;
 			canResetGame = true;
 			currentPositivePoints = (int)(defaultPositivePoints * (1-pointMultiplier));
-			
+
+			//curtainAnimationController.SetFloat("CurtainCloseSpeed", currentCurtainCloseSpeed,);
+			//currentCurtainCloseSpeed = Mathf.Lerp(startCurtainCloseSpeed, 1, currentRoundNumber / 50);
+			//curtainAnimationController.SetFloat("CurtainCloseSpeed", currentCurtainCloseSpeed, 1, currentRoundNumber / 10);
 
 		}
 		else
@@ -223,7 +226,15 @@ public class GameManager : MonoBehaviour
 			//Reset positive and negative points to default values for potential matches.
 			currentPositivePoints = defaultPositivePoints;
 			audioController.SetIntensity(currentRoundNumber >= intenseRoundNumber);
+			//Increase curtain closing speed at the end of each round
+			if(currentCurtainCloseSpeed<=1)
+			{
+				currentCurtainCloseSpeed += 0.05f;
+				curtainAnimationController.SetFloat("CurtainCloseSpeed", currentCurtainCloseSpeed);
+			}
+			
 		}
+
 
 	}
 
@@ -251,8 +262,6 @@ public class GameManager : MonoBehaviour
 			{
 				SoulNoMatch(soul);
 			}
-		
-		
 	}
 
 	public void ResetSoulPosition(Soul soul)
