@@ -83,10 +83,12 @@ public class GameManager : MonoBehaviour
 		// Randomize soul material and update what indexes are valid
 		validSoulMaterialIndexes.Remove(soul.materialIndex);
 		int grabbedIndex = soulManager.currentSouls.IndexOf(soul);
-		soulManager.ChangeSoul(grabbedIndex);
+		
+		soulManager.ChangeSoul(soul);
+		soulManager.ReturnSoulStartPosition(grabbedIndex);
 		validSoulMaterialIndexes.Add(soulManager.currentSouls[grabbedIndex].materialIndex);
 		SelectValidIndex();
-
+		
 		// Close Curtains 
 		curtainAnimationController.SetBool("GameRunning", false);
 		//inputWatcher.
@@ -95,9 +97,11 @@ public class GameManager : MonoBehaviour
 
 	}
 	//When soul doesn't match target
-	public void SoulNoMatch()
+	public void SoulNoMatch(Soul soul)
 	{
 		Debug.Log("No Match!");
+		int grabbedIndex = soulManager.currentSouls.IndexOf(soul);
+		soulManager.ReturnSoulStartPosition(grabbedIndex);
 		currentScore += pointsForMiss;
 		if (currentScore < 0)
 		{
@@ -202,7 +206,13 @@ public class GameManager : MonoBehaviour
 		}
 		else
 		{
-			SoulNoMatch();
+			SoulNoMatch(soul);
 		}
+	}
+
+	public void ResetSoulPosition(Soul soul)
+	{
+			soulManager.ReturnSoulStartPosition(soulManager.currentSouls.IndexOf(soul));
+	
 	}
 }

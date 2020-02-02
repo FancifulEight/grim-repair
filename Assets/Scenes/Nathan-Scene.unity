@@ -2619,7 +2619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 5de94a6f7dba4e34ea5593bbafcfeeef, type: 2}
   correctTarget: 0
-  materialIndex: 2
+  materialIndex: 1
   targetBody: {fileID: 0}
   doNotRandomize: 1
 --- !u!135 &963963388
@@ -2724,7 +2724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 5de94a6f7dba4e34ea5593bbafcfeeef, type: 2}
   correctTarget: 0
-  materialIndex: 0
+  materialIndex: 2
   targetBody: {fileID: 0}
   doNotRandomize: 1
 --- !u!111 &1081999765
@@ -4530,7 +4530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 5de94a6f7dba4e34ea5593bbafcfeeef, type: 2}
   correctTarget: 0
-  materialIndex: 1
+  materialIndex: 0
   targetBody: {fileID: 0}
   doNotRandomize: 1
 --- !u!135 &1845166372

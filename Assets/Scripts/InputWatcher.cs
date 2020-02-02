@@ -73,7 +73,10 @@ public class InputWatcher : MonoBehaviour
 				//	GameManager.instance.SoulNoMatch();
 				//}
 			}
-			dragObject.SendMessage("ResetPosition");
+			else
+			{
+				GameManager.instance.SoulNoMatch(dragObject.GetComponent<Soul>());
+			}
 			dragObject = null;
 			soulPosition = Vector3.zero;
 			handAnimationController.SetBool("Dragging", false);

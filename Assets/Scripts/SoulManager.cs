@@ -68,4 +68,9 @@ public class SoulManager : MonoBehaviour {
 
         return soulList[Random.Range(0, soulList.Count)];
     }
+
+	public void ReturnSoulStartPosition(int index)
+	{
+		currentSouls[index].gameObject.transform.position = soulPositions[index].transform.position;
+	}
 }
