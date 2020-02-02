@@ -39,7 +39,11 @@ public class GameManager : MonoBehaviour
 		validSoulMaterialIndexes = new List<int>();
 		foreach (Soul s in soulArray)
 		{
-			s.SetRandomMaterial();
+			if(s.doNotRandomize)
+			{
+				s.SetMaterial(s.materialIndex);
+			}
+			//s.SetRandomMaterial();
 			validSoulMaterialIndexes.Add(s.materialIndex);
 		}
 		
@@ -48,7 +52,8 @@ public class GameManager : MonoBehaviour
 
 		correctMaterialIndex = validSoulMaterialIndexes[Random.Range(0, validSoulMaterialIndexes.Count)];
 
-		RandomizeTargetMaterials();
+		SetTargetMaterials();
+		curtainAnimationController.SetBool("GameRunning", true);
 	}
 	//set materials and target materials.
 	
@@ -69,8 +74,11 @@ public class GameManager : MonoBehaviour
 		validSoulMaterialIndexes.Add(soul.materialIndex);
 		SelectValidIndex();
 
+		// Close Curtains 
+		curtainAnimationController.SetBool("GameRunning", false);
+
 		// Randomize all target materials.
-		RandomizeTargetMaterials();
+		SetTargetMaterials();
 
 	}
 	//When soul doesn't match target
@@ -86,7 +94,7 @@ public class GameManager : MonoBehaviour
 	}
 	//Set points (doesn't add to total, sets value).
 
-	void RandomizeTargetMaterials()
+	void SetTargetMaterials()
 	{
 		foreach (Target t in targetArray)
 		{
@@ -98,11 +106,19 @@ public class GameManager : MonoBehaviour
 			else
 			{
 				// If the target is not the right one, set its material index to one not being 
-				t.SetRandomMaterial();
-				while (validSoulMaterialIndexes.Contains(t.materialIndex))
+				if(t.doNotRandomize)
+				{
+					t.SetMaterial(t.materialIndex);
+				}
+				else
 				{
 					t.SetRandomMaterial();
+					while (validSoulMaterialIndexes.Contains(t.materialIndex))
+					{
+						t.SetRandomMaterial();
+					}
 				}
+				
 			}
 		}
 	}
@@ -116,21 +132,33 @@ public class GameManager : MonoBehaviour
 	public void EndGame()
 	{
 		// Do end game stuff.
-		gameIsOver = true;
+		Debug.Log("GameOver");
 	}
 
 	public void OnCurtainsClosed()
 	{
+		Debug.Log("Curtains Closed.");
 		//When curtains closed
+		if(gameIsOver)
+		{
+			EndGame();
+		}
+		else
+		{
+			SetTargetMaterials();
+		}
 	}
 
 	public void OnCurtainsOpened()
 	{
-		// Game ends when curtain is fully open.
-		if(gameIsOver)
-		{
+		// Called on curtains fully opened
+		Debug.Log("Curtains Opened");
+		gameIsOver = true;
+		curtainAnimationController.SetBool("GameRunning", false);
+	}
 
-		}
-
+	public void OnCurtainsIdle()
+	{
+		Debug.Log("Curtain Idle");
 	}
 }

@@ -7,6 +7,8 @@ public class Soul : MonoBehaviour
 	public ObjectDataScript data;
 	public int materialIndex;
 	Vector3 startPosition;
+	public GameObject soulBody;
+	public bool doNotRandomize;
 
 	void Awake()
 	{
