@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 	InputWatcher inputWatcher;
 	SoulManager soulManager;
 	public int carriedSoulIndex;
-	public TextMeshProUGUI positivePointsText;
+	//public TextMeshProUGUI positivePointsText;
 	string positivePointString;
 	bool musicIsIntense;
 	int currentRoundNumber;
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
 		{
 			canResetGame = false;
 		}
-		positivePointsText.text = "+" + currentPositivePoints.ToString();
+		//positivePointsText.text = "+" + currentPositivePoints.ToString();
 	}
 	//When soul matches target
 	public void SoulMatches(Soul soul, Target target)
