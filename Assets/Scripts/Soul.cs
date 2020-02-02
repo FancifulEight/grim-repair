@@ -19,7 +19,6 @@ public class Soul : MonoBehaviour
 	{
 		//SetMaterial(materialIndex);
 		//startPosition = transform.position;
-		
 	}
 
 	public void ResetPosition()
