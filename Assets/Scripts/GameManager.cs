@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 	int currentScore;
 	int pointsForMatch = 100;
 	int pointsForMiss = -250;
-	bool gameIsOver;
+	bool gameIsOver, matchMade;
 	public Animator curtainAnimationController;
 
 	// Game Start - randomize soul and target materials. Only one target is the correct one.
@@ -43,7 +43,11 @@ public class GameManager : MonoBehaviour
 			{
 				s.SetMaterial(s.materialIndex);
 			}
-			//s.SetRandomMaterial();
+			else
+			{
+				s.SetRandomMaterial();
+			}
+			
 			validSoulMaterialIndexes.Add(s.materialIndex);
 		}
 		
@@ -66,6 +70,7 @@ public class GameManager : MonoBehaviour
 	public void SoulMatches(Soul soul, Target target)
 	{
 		Debug.Log("Matches!");
+		matchMade = true;
 		currentScore += pointsForMatch;
 		poinsetta.SetPoints(currentScore);
 		// Randomize soul material and update what indexes are valid
@@ -139,26 +144,32 @@ public class GameManager : MonoBehaviour
 	{
 		Debug.Log("Curtains Closed.");
 		//When curtains closed
-		if(gameIsOver)
-		{
-			EndGame();
-		}
-		else
-		{
-			SetTargetMaterials();
-		}
+		
 	}
 
 	public void OnCurtainsOpened()
 	{
 		// Called on curtains fully opened
 		Debug.Log("Curtains Opened");
-		gameIsOver = true;
+		if(!matchMade)
+		{
+			gameIsOver = true;
+		}
+		matchMade = false;
 		curtainAnimationController.SetBool("GameRunning", false);
 	}
 
 	public void OnCurtainsIdle()
 	{
 		Debug.Log("Curtain Idle");
+		if (gameIsOver)
+		{
+			EndGame();
+		}
+		else
+		{
+			SetTargetMaterials();
+			curtainAnimationController.SetBool("GameRunning", true);
+		}
 	}
 }
