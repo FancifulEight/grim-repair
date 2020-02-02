@@ -27,6 +27,10 @@ public class SoulManager : MonoBehaviour {
             index = Random.Range(0, currentSouls.Count);
         }
 
+        for (int i = 0;i < currentSouls.Count;i++) {
+            currentSouls[i].transform.position = soulPositions[i].position;
+        }
+
         return currentSouls;
     }
 
