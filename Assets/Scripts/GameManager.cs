@@ -12,12 +12,9 @@ public class GameManager : MonoBehaviour
 	int correctMaterialIndex;
 	public Poinsetta poinsetta;
 	int currentScore;
-	[SerializeField]
 	int defaultPositivePoints = 250;
 	int currentPositivePoints;
-	[SerializeField]
 	int minimumNegativePoints = -50;
-	[SerializeField]
 	int currentNegativePoints;
 	float pointMultiplier;
 	bool gameIsOver, matchMade, canResetGame;
@@ -33,8 +30,10 @@ public class GameManager : MonoBehaviour
 	AudioController audioController;
 	int intenseRoundNumber = 4;
 	
-	public float startCurtainCloseSpeed = 0.1f;
-	public float currentCurtainCloseSpeed;
+	 float startCurtainCloseSpeed = 0.1f;
+	 float maxCurtainCloseSpeed = 2;
+	 float currentCurtainCloseSpeed;
+	 float curtainCloseLerpSpeed = 100f;
  void Awake()
 	{
 		gameIsOver = false;
@@ -227,9 +226,9 @@ public class GameManager : MonoBehaviour
 			currentPositivePoints = defaultPositivePoints;
 			audioController.SetIntensity(currentRoundNumber >= intenseRoundNumber);
 			//Increase curtain closing speed at the end of each round
-			if(currentCurtainCloseSpeed<=1)
+			if(currentCurtainCloseSpeed<maxCurtainCloseSpeed)
 			{
-				currentCurtainCloseSpeed += 0.05f;
+				currentCurtainCloseSpeed = Mathf.Lerp(startCurtainCloseSpeed, maxCurtainCloseSpeed, currentRoundNumber/curtainCloseLerpSpeed);
 				curtainAnimationController.SetFloat("CurtainCloseSpeed", currentCurtainCloseSpeed);
 			}
 			
