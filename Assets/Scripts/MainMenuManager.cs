@@ -7,9 +7,17 @@ public class MainMenuManager : MonoBehaviour
 {
 	public string startSceneName;
 	 public GameObject mainPanel, optionsPanel;
+	 public Animator skeletonHand;
 
-	public void StartGame()
-	{
+	public void StartGame() {
+		if (!skeletonHand.GetBool("Dragging")) {
+			skeletonHand.SetBool("Dragging", true);
+			StartCoroutine(LoadSceneAfterTime());
+		}
+	}
+
+	public IEnumerator LoadSceneAfterTime() {
+		yield return new WaitForSeconds(0.2f);
 		SceneManager.LoadScene(startSceneName);
 	}
 

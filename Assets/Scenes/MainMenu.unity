@@ -471,6 +471,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 423014998}
   m_CullTransparentMesh: 0
+--- !u!95 &628187392 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8296172668112494558, guid: f50cfa5c6709f364a904d3acf8e6bbd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 2116823418}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &679468112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2378,6 +2384,7 @@ MonoBehaviour:
   startSceneName: MainGame
   mainPanel: {fileID: 81214620}
   optionsPanel: {fileID: 967982675}
+  skeletonHand: {fileID: 628187392}
 --- !u!114 &2134005298
 MonoBehaviour:
   m_ObjectHideFlags: 0
