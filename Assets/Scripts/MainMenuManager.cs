@@ -12,6 +12,11 @@ public class MainMenuManager : MonoBehaviour
 	[Header("SFX")]
 	public AudioClip clickSFX;
 
+
+	public void LoadScene(string sceneName)
+	{
+		SceneManager.LoadScene(sceneName);
+	}
 	public void StartGame() {
 		if (!skeletonHand.GetBool("Dragging")) {
 			AudioController.ac.PlaySFX(clickSFX);
