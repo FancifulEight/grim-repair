@@ -19,6 +19,13 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 83e415fef8028a84a9a96860a81cab6e, type: 2}
   - {fileID: 2100000, guid: fb966a607b0eaf34e9e09642ff9f0b08, type: 2}
   - {fileID: 2100000, guid: 0b1f119ed8000054d9ae9385f4215be9, type: 2}
+  soulBodymaterialList:
+  - {fileID: 2100000, guid: 43fd3ff13be19b54b919f06e8605c3b9, type: 2}
+  - {fileID: 2100000, guid: 43fd3ff13be19b54b919f06e8605c3b9, type: 2}
+  - {fileID: 2100000, guid: 43fd3ff13be19b54b919f06e8605c3b9, type: 2}
+  - {fileID: 2100000, guid: 43fd3ff13be19b54b919f06e8605c3b9, type: 2}
+  - {fileID: 2100000, guid: 43fd3ff13be19b54b919f06e8605c3b9, type: 2}
+  - {fileID: 2100000, guid: 43fd3ff13be19b54b919f06e8605c3b9, type: 2}
   targetMaterialList:
   - {fileID: 2100000, guid: 2ea5b2992519bfc4c87f53f9170dc5d9, type: 2}
   - {fileID: 2100000, guid: c7332e72dca79f240a98a71e7182d317, type: 2}
@@ -26,3 +33,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 83e415fef8028a84a9a96860a81cab6e, type: 2}
   - {fileID: 2100000, guid: fb966a607b0eaf34e9e09642ff9f0b08, type: 2}
   - {fileID: 2100000, guid: 0b1f119ed8000054d9ae9385f4215be9, type: 2}
+  bodyList:
+  - {fileID: -927199367670048503, guid: 6327a2869066de948bbfa7597a8df587, type: 3}
+  - {fileID: -927199367670048503, guid: c1cd0de3581a19a45b0054f4aefc7169, type: 3}
+  - {fileID: -927199367670048503, guid: bbbe7b0e17895c44fbede4898fa87234, type: 3}
