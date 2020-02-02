@@ -84,7 +84,7 @@ public class InputWatcher : MonoBehaviour
 			}
 			else
 			{
-				GameManager.instance.SoulNoMatch(dragObject.GetComponent<Soul>());
+				GameManager.instance.ResetSoulPosition(dragObject.GetComponent<Soul>());
 			}
 			dragObject = null;
 			soulPosition = Vector3.zero;
