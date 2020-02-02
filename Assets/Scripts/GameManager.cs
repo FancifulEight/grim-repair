@@ -11,8 +11,15 @@ public class GameManager : MonoBehaviour
 	int correctMaterialIndex;
 	public Poinsetta poinsetta;
 	int currentScore;
-	int pointsForMatch = 100;
-	int pointsForMiss = -250;
+	[SerializeField]
+	int defaultPositivePoints = 100;
+	int currentPositivePoints;
+	[SerializeField]
+	int minimumNegativePoints = -50;
+	[SerializeField]
+	int additionalNegativePoints = -200;
+	int currentNegativePoints;
+	float pointMultiplier;
 	bool gameIsOver, matchMade, canResetGame;
 	public Animator curtainAnimationController;
 	public GameObject gameOverPanel;
@@ -69,12 +76,16 @@ public class GameManager : MonoBehaviour
 		if(matchMade && canResetGame)
 		{
 			curtainAnimationController.SetBool("GameRunning", false);
+			canResetGame = false;
 		}
-		if (curtainAnimationController.GetCurrentAnimatorStateInfo(0).IsName("Open"))
+		if ( !gameIsOver && curtainAnimationController.GetCurrentAnimatorStateInfo(0).IsName("Open"))
 		{
 			//Debug.Log("Opening");
 			//Debug.Log(curtainAnimationController.GetCurrentAnimatorStateInfo(0).normalizedTime);
+			pointMultiplier = 1 - curtainAnimationController.GetCurrentAnimatorStateInfo(0).normalizedTime;
 			canResetGame = true;
+			currentPositivePoints = (int)Mathf.Round(defaultPositivePoints * pointMultiplier);
+			//currentNegativePoints = minimumNegativePoints - (additionalNegativePoints * pointMultiplier);
 		}
 		else
 		{
@@ -88,7 +99,7 @@ public class GameManager : MonoBehaviour
 		Debug.Log("Matches!");
 		matchMade = true;
 		canResetGame = false;
-		currentScore += pointsForMatch;
+		currentScore += currentPositivePoints;
 		poinsetta.SetPoints(currentScore);
 		// Randomize soul material and update what indexes are valid
 		validSoulMaterialIndexes.Remove(soul.materialIndex);
@@ -111,7 +122,7 @@ public class GameManager : MonoBehaviour
 		Debug.Log("No Match!");
 		int grabbedIndex = soulManager.currentSouls.IndexOf(soul);
 		soulManager.ReturnSoulStartPosition(grabbedIndex);
-		currentScore += pointsForMiss;
+		currentScore += minimumNegativePoints;
 		if (currentScore < 0)
 		{
 			currentScore = 0;
@@ -192,9 +203,13 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			soulManager.SetRandomBody();
-			
 			curtainAnimationController.SetBool("GameRunning", true);
+
+			//Reset positive and negative points to default values for potential matches.
+			currentPositivePoints = defaultPositivePoints;
+			currentNegativePoints = minimumNegativePoints;
 		}
+
 	}
 
 	
