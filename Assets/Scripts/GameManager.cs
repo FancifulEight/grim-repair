@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,13 +16,16 @@ public class GameManager : MonoBehaviour
 	int pointsForMiss = -250;
 	bool gameIsOver, matchMade;
 	public Animator curtainAnimationController;
-
+	public GameObject gameOverPanel;
+	InputWatcher inputWatcher;
+	SoulManager soulManager;
+	public int carriedSoulIndex;
 	// Game Start - randomize soul and target materials. Only one target is the correct one.
 	void Awake()
 	{
 		gameIsOver = false;
-		soulArray = FindObjectsOfType<Soul>();
-		targetArray = FindObjectsOfType<Target>();
+		//soulArray = FindObjectsOfType<Soul>();
+		//targetArray = FindObjectsOfType<Target>();
 		if(instance !=null)
 		{
 			Destroy(this);
@@ -30,33 +34,36 @@ public class GameManager : MonoBehaviour
 		{
 			instance = this;
 		}
+		inputWatcher = FindObjectOfType<InputWatcher>();
+		soulManager = GetComponent<SoulManager>();
 	}
 
 	private void Start()
 	{
 		currentScore = 0;
 		poinsetta.SetPoints(currentScore);
+		soulManager.SetUpGame();
 		validSoulMaterialIndexes = new List<int>();
-		foreach (Soul s in soulArray)
+		foreach (Soul s in soulManager.currentSouls)
 		{
-			if(s.doNotRandomize)
+			if (s.doNotRandomize)
 			{
 				s.SetMaterial(s.materialIndex);
 			}
-			else
-			{
-				s.SetRandomMaterial();
-			}
-			
-			validSoulMaterialIndexes.Add(s.materialIndex);
+		//	else
+		//	{
+		//		s.SetRandomMaterial();
+		//	}
+
+		 validSoulMaterialIndexes.Add(s.materialIndex);
 		}
-		
+
 		// Only one target should be the right one.
-		targetArray[Random.Range(0, targetArray.Length)].correctTarget = true;
+		//targetArray[Random.Range(0, targetArray.Length)].correctTarget = true;
 
 		correctMaterialIndex = validSoulMaterialIndexes[Random.Range(0, validSoulMaterialIndexes.Count)];
 
-		SetTargetMaterials();
+		//SetTargetMaterials();
 		curtainAnimationController.SetBool("GameRunning", true);
 	}
 	//set materials and target materials.
@@ -75,15 +82,16 @@ public class GameManager : MonoBehaviour
 		poinsetta.SetPoints(currentScore);
 		// Randomize soul material and update what indexes are valid
 		validSoulMaterialIndexes.Remove(soul.materialIndex);
-		soul.SetRandomMaterial();
-		validSoulMaterialIndexes.Add(soul.materialIndex);
+		int grabbedIndex = soulManager.currentSouls.IndexOf(soul);
+		soulManager.ChangeSoul(grabbedIndex);
+		validSoulMaterialIndexes.Add(soulManager.currentSouls[grabbedIndex].materialIndex);
 		SelectValidIndex();
 
 		// Close Curtains 
 		curtainAnimationController.SetBool("GameRunning", false);
-
+		//inputWatcher.
 		// Randomize all target materials.
-		SetTargetMaterials();
+		//SetTargetMaterials();
 
 	}
 	//When soul doesn't match target
@@ -101,31 +109,32 @@ public class GameManager : MonoBehaviour
 
 	void SetTargetMaterials()
 	{
-		foreach (Target t in targetArray)
-		{
-			// If the target is the right one, set it's material index to one of the soulmaterial indexes.
-			if (t.correctTarget == true)
-			{
-				t.SetMaterial(correctMaterialIndex);
-			}
-			else
-			{
-				// If the target is not the right one, set its material index to one not being 
-				if(t.doNotRandomize)
-				{
-					t.SetMaterial(t.materialIndex);
-				}
-				else
-				{
-					t.SetRandomMaterial();
-					while (validSoulMaterialIndexes.Contains(t.materialIndex))
-					{
-						t.SetRandomMaterial();
-					}
-				}
-				
-			}
-		}
+		//foreach (Target t in targetArray)
+		//{
+		//	// If the target is the right one, set it's material index to one of the soulmaterial indexes.
+		//	if (t.correctTarget == true)
+		//	{
+		//		t.SetMaterial(correctMaterialIndex);
+		//	}
+		//	else
+		//	{
+		//		// If the target is not the right one, set its material index to one not being 
+		//		if(t.doNotRandomize)
+		//		{
+		//			t.SetMaterial(t.materialIndex);
+		//		}
+		//		else
+		//		{
+		//			t.SetRandomMaterial();
+		//			while (validSoulMaterialIndexes.Contains(t.materialIndex))
+		//			{
+		//				t.SetRandomMaterial();
+		//			}
+		//		}
+
+		//	}
+		//}
+		//soulManager.currentTarget.SetMaterial(correctMaterialIndex);
 	}
 
 	void SelectValidIndex()
@@ -138,6 +147,7 @@ public class GameManager : MonoBehaviour
 	{
 		// Do end game stuff.
 		Debug.Log("GameOver");
+		gameOverPanel.SetActive(true);
 	}
 
 	public void OnCurtainsClosed()
@@ -170,6 +180,29 @@ public class GameManager : MonoBehaviour
 		{
 			SetTargetMaterials();
 			curtainAnimationController.SetBool("GameRunning", true);
+		}
+	}
+
+	public void ReloadGame()
+	{
+		// Currently just reload the current scene on replay.
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	}
+
+	public void GoToMenu()
+	{
+		SceneManager.LoadScene("Main Menu");
+	}
+
+	public void CheckForMatch(Soul soul, Target target)
+	{
+		if(soul.materialIndex == target.materialIndex)
+		{
+			SoulMatches(soul, target);
+		}
+		else
+		{
+			SoulNoMatch();
 		}
 	}
 }

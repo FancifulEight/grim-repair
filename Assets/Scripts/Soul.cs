@@ -12,12 +12,14 @@ public class Soul : MonoBehaviour
 
 	void Awake()
 	{
-		// material = data.materialList[materialIndex];
-		
+		//material = data.materialList[materialIndex];
+		soulBody = data.bodyList[materialIndex];
 	}
 	private void Start()
 	{
-		startPosition = transform.position;
+		//SetMaterial(materialIndex);
+		//startPosition = transform.position;
+		
 	}
 
 	public void ResetPosition()
@@ -35,5 +37,10 @@ public class Soul : MonoBehaviour
 	{
 		materialIndex = data.RandomMaterialIndex();
 		GetComponentInChildren<Renderer>().material = data.materialList[materialIndex];
+	}
+
+	public void SetStartPosition()
+	{
+		
 	}
 }

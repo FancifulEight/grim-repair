@@ -16,7 +16,7 @@ public class ObjectDataScript : ScriptableObject
 
 	public int RandomMaterialIndex()
 	{
-		return Random.Range(0, materialList.Count);
+		return Random.Range(0, bodyList.Count);
 	}
 	public int RandomBodyList()
 	{
