@@ -12,12 +12,9 @@ public class GameManager : MonoBehaviour
 	int correctMaterialIndex;
 	public Poinsetta poinsetta;
 	int currentScore;
-	[SerializeField]
 	int defaultPositivePoints = 250;
 	int currentPositivePoints;
-	[SerializeField]
 	int minimumNegativePoints = -50;
-	[SerializeField]
 	int currentNegativePoints;
 	float pointMultiplier;
 	bool gameIsOver, matchMade, canResetGame;
@@ -29,7 +26,14 @@ public class GameManager : MonoBehaviour
 	//public TextMeshProUGUI positivePointsText;
 	string positivePointString;
 	bool musicIsIntense;
-	int currentRoundNumber;
+	public int currentRoundNumber;
+	AudioController audioController;
+	int intenseRoundNumber = 4;
+	
+	 float startCurtainCloseSpeed = 0.1f;
+	 float maxCurtainCloseSpeed = 2;
+	 float currentCurtainCloseSpeed;
+	 float curtainCloseLerpSpeed = 100f;
  void Awake()
 	{
 		gameIsOver = false;
@@ -44,6 +48,7 @@ public class GameManager : MonoBehaviour
 		}
 		inputWatcher = FindObjectOfType<InputWatcher>();
 		soulManager = FindObjectOfType<SoulManager>();
+		audioController = FindObjectOfType<AudioController>();
 	}
 
 	
@@ -74,7 +79,7 @@ public class GameManager : MonoBehaviour
 		// Only one target should be the right one.
 		correctMaterialIndex = validSoulMaterialIndexes[Random.Range(0, validSoulMaterialIndexes.Count)];
 
-		
+		currentCurtainCloseSpeed = startCurtainCloseSpeed;
 		curtainAnimationController.SetBool("GameRunning", true);
 	}
 	//set materials and target materials.
@@ -92,7 +97,10 @@ public class GameManager : MonoBehaviour
 			pointMultiplier = curtainAnimationController.GetCurrentAnimatorStateInfo(0).normalizedTime;
 			canResetGame = true;
 			currentPositivePoints = (int)(defaultPositivePoints * (1-pointMultiplier));
-			
+
+			//curtainAnimationController.SetFloat("CurtainCloseSpeed", currentCurtainCloseSpeed,);
+			//currentCurtainCloseSpeed = Mathf.Lerp(startCurtainCloseSpeed, 1, currentRoundNumber / 50);
+			//curtainAnimationController.SetFloat("CurtainCloseSpeed", currentCurtainCloseSpeed, 1, currentRoundNumber / 10);
 
 		}
 		else
@@ -203,6 +211,7 @@ public class GameManager : MonoBehaviour
 	public void OnCurtainsIdle()
 	{
 		Debug.Log("Curtain Idle");
+		currentRoundNumber++;
 		matchMade = false;
 		if (gameIsOver)
 		{
@@ -215,7 +224,16 @@ public class GameManager : MonoBehaviour
 
 			//Reset positive and negative points to default values for potential matches.
 			currentPositivePoints = defaultPositivePoints;
+			audioController.SetIntensity(currentRoundNumber >= intenseRoundNumber);
+			//Increase curtain closing speed at the end of each round
+			if(currentCurtainCloseSpeed<maxCurtainCloseSpeed)
+			{
+				currentCurtainCloseSpeed = Mathf.Lerp(startCurtainCloseSpeed, maxCurtainCloseSpeed, currentRoundNumber/curtainCloseLerpSpeed);
+				curtainAnimationController.SetFloat("CurtainCloseSpeed", currentCurtainCloseSpeed);
+			}
+			
 		}
+
 
 	}
 
@@ -243,8 +261,6 @@ public class GameManager : MonoBehaviour
 			{
 				SoulNoMatch(soul);
 			}
-		
-		
 	}
 
 	public void ResetSoulPosition(Soul soul)
